@@ -2,9 +2,11 @@
 package config
 
 import (
-	"encodign/json"
+	"encoding/json"
+	"io/ioutil"
 	"log"
-	"os"
+	"reflect"
+	"strconv"
 )
 
 
@@ -19,7 +21,7 @@ type StKeyConfig struct {
 	ButtonLock int `json:"ButtonLock"`
 }
 
-var KeyConfig StKeyConfig{};
+var KeyConfig StKeyConfig
 
 func Read(filename string) {
 	bytes, err := ioutil.ReadFile(filename)
@@ -36,7 +38,7 @@ func Write(filename string) {
 	jsonBytes, err := json.Marshal(KeyConfig)
 	if err != nil {
 	} else {
-		ioutil.writeFile(filename, jsonBytes)
+		ioutil.WriteFile(filename, jsonBytes, 0666)
 	}
 }
 
